@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Rachith Kumar — Aspiring Data Analyst / Data Scientist</title>
+<meta name="description" content="Portfolio of Rachith Kumar, a Computer Science undergraduate at Parul University building across Python, SQL, Power BI, Tableau and full-stack development. Explore projects, certifications, and skills." />
+<meta name="keywords" content="Rachith Kumar, Data Analyst, Data Scientist, Portfolio, Parul University, Python, SQL, Power BI, Tableau, Flask, MongoDB" />
+<meta name="author" content="Rachith Kumar" />
+<meta name="robots" content="index, follow" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Rachith Kumar — Aspiring Data Analyst / Data Scientist" />
+<meta property="og:description" content="Computer Science undergraduate building across Python, SQL, Power BI, Tableau and full-stack development. Explore projects, certifications, and skills." />
+<meta property="og:site_name" content="Rachith Kumar — Portfolio" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Rachith Kumar — Aspiring Data Analyst / Data Scientist" />
+<meta name="twitter:description" content="Computer Science undergraduate building across Python, SQL, Power BI, Tableau and full-stack development." />
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!--
+  Import map: lets the site run its ES modules directly in a browser
+  (via a static server, no build step) by resolving the bare "three"
+  and "gsap" specifiers to CDN builds. When run through Vite (npm run
+  dev / npm run build), Vite resolves these from node_modules instead
+  and this map is simply unused.
+-->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/+esm",
+    "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm",
+    "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js"
+  }
+}
+</script>
+<style>
+/* ============================================================================
+   DESIGN TOKENS
+   Direction: "digital identity core" — near-black workspace, electric
+   indigo + cyan signal colors, glass panels, thin borders, restrained glow.
+   Type: Sora (display) / Inter (body) / JetBrains Mono (code, labels).
+============================================================================ */
+:root{
+  --bg: #07080D;
+  --bg-1: #0B0D16;
+  --bg-2: #10131F;
+  --glass: rgba(255,255,255,0.045);
+  --glass-strong: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.09);
+  --border-strong: rgba(255,255,255,0.16);
+
+  --text: #EDEFF7;
+  --text-dim: #9CA3BE;
+  --text-faint: #5C637E;
+
+  --violet: #7C6CFF;
+  --violet-soft: rgba(124,108,255,0.18);
+  --cyan: #4EEAD0;
+  --cyan-soft: rgba(78,234,208,0.18);
+  --coral: #FF8A5C;
+
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --ease: cubic-bezier(.16,.84,.44,1);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; background:var(--bg); }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  overflow-x:hidden;
+  cursor:none;
+  min-height:100vh;
+}
+@media (max-width:900px), (hover:none){
+  body{ cursor:auto; }
+  .cursor-dot,.cursor-ring{ display:none !important; }
+}
+
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+ul{ list-style:none; }
+button{ font:inherit; cursor:pointer; background:none; border:none; color:inherit; }
+
+::selection{ background:var(--violet); color:#fff; }
+
+.wrap{ max-width:1240px; margin:0 auto; padding:0 32px; position:relative; z-index:2; }
+
+.skip-link{
+  position:absolute; left:-9999px; top:0; background:var(--violet); color:#fff;
+  padding:12px 20px; z-index:999; border-radius:0 0 8px 0;
+}
+.skip-link:focus{ left:0; }
+
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+  outline:2px solid var(--cyan); outline-offset:3px; border-radius:4px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+}
+
+/* ============================================================================
+   LOADER
+============================================================================ */
+#loader{
+  position:fixed; inset:0; z-index:9999;
+  background:var(--bg);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
+  transition: opacity .6s var(--ease), visibility .6s var(--ease);
+}
+#loader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+.loader-core{ position:relative; width:110px; height:110px; display:flex; align-items:center; justify-content:center; }
+.loader-ring{ position:absolute; inset:0; width:100%; height:100%; animation: spin 2.2s linear infinite; }
+.loader-ring circle{
+  fill:none; stroke:url(#loaderGrad); stroke-width:2; stroke-linecap:round;
+  stroke-dasharray: 240; stroke-dashoffset: 60;
+}
+.loader-glyph{
+  font-family:var(--font-display); font-weight:700; font-size:22px; letter-spacing:2px;
+  background:linear-gradient(120deg,var(--violet),var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.loader-text{
+  font-family:var(--font-mono); font-size:12px; letter-spacing:3px; color:var(--text-faint);
+  min-height:16px;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+/* ============================================================================
+   CUSTOM CURSOR
+============================================================================ */
+.cursor-dot, .cursor-ring{
+  position:fixed; top:0; left:0; pointer-events:none; z-index:9998;
+  border-radius:50%; transform:translate(-50%,-50%);
+  will-change:transform;
+}
+.cursor-dot{ width:6px; height:6px; background:var(--cyan); }
+.cursor-ring{
+  width:34px; height:34px; border:1px solid rgba(78,234,208,0.5);
+  transition: width .25s var(--ease), height .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+}
+.cursor-ring.hover{ width:60px; height:60px; background:rgba(78,234,208,0.08); border-color:var(--cyan); }
+.cursor-ring.hover-strong{ width:84px; height:84px; background:rgba(124,108,255,0.12); border-color:var(--violet); }
+
+/* ============================================================================
+   NAV
+============================================================================ */
+#navbar{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  transition: background .3s var(--ease), border-color .3s var(--ease), backdrop-filter .3s var(--ease);
+  border-bottom:1px solid transparent;
+}
+#navbar.scrolled{
+  background:rgba(7,8,13,0.72); backdrop-filter: blur(16px);
+  border-bottom-color:var(--border);
+}
+.nav-inner{ max-width:1240px; margin:0 auto; padding:20px 32px; display:flex; align-items:center; justify-content:space-between; }
+.logo{ font-family:var(--font-display); font-weight:700; font-size:18px; display:flex; align-items:center; gap:10px; }
+.logo-avatar{
+  width:30px; height:30px; border-radius:50%; object-fit:cover;
+  border:1.5px solid var(--border-strong);
+  box-shadow:0 0 0 3px rgba(124,108,255,0.12);
+}
+.logo-mark{
+  width:10px; height:10px; border-radius:3px;
+  background:linear-gradient(120deg,var(--violet),var(--cyan));
+  box-shadow:0 0 16px rgba(124,108,255,0.6);
+  transform:rotate(45deg);
+}
+.logo-accent{ color:var(--cyan); }
+.nav-links{ display:flex; align-items:center; gap:30px; font-family:var(--font-mono); font-size:13px; }
+.nav-links a{ color:var(--text-dim); transition:color .2s; }
+.nav-links a:hover{ color:var(--text); }
+.nav-cta{
+  padding:9px 18px; border:1px solid var(--border-strong); border-radius:100px;
+  color:var(--text) !important;
+}
+.nav-cta:hover{ border-color:var(--cyan); background:var(--cyan-soft); }
+.nav-toggle{ display:none; flex-direction:column; gap:5px; padding:8px; }
+.nav-toggle span{ width:22px; height:2px; background:var(--text); transition:.3s; }
+
+@media (max-width:860px){
+  .nav-toggle{ display:flex; }
+  .nav-links{
+    position:fixed; top:0; right:0; height:100vh; width:min(78vw,320px);
+    background:rgba(10,12,20,0.97); backdrop-filter: blur(20px);
+    flex-direction:column; justify-content:center; align-items:flex-start;
+    padding:40px; gap:26px; font-size:16px;
+    transform:translateX(100%); transition:transform .4s var(--ease);
+    border-left:1px solid var(--border);
+  }
+  .nav-links.open{ transform:translateX(0); }
+}
+
+/* ============================================================================
+   HERO
+============================================================================ */
+#hero{
+  position:relative; min-height:100vh; display:flex; align-items:center;
+  overflow:hidden;
+}
+#heroCanvas{ position:absolute; inset:0; width:100%; height:100%; z-index:0; }
+.hero-vignette{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background: radial-gradient(ellipse 70% 60% at 50% 40%, transparent 0%, rgba(7,8,13,0.5) 70%, var(--bg) 100%);
+}
+.hero-grid{
+  position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0.35;
+  background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+.hero-content{ position:relative; z-index:3; padding-top:80px; }
+
+.hero-columns{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:center; }
+@media (max-width:980px){
+  .hero-columns{ grid-template-columns:1fr; }
+  .hero-photo-stage{ order:-1; margin:0 auto 24px; }
+}
+
+/* word-mask reveal support for hero title (spans injected by JS) */
+.word-mask{ display:inline-block; overflow:hidden; vertical-align:top; }
+.word-inner{ display:inline-block; will-change:transform; }
+
+.hero-photo-stage{
+  position:relative; width:min(100%, 380px); aspect-ratio:3/4; margin-left:auto;
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-photo-ring{
+  position:absolute; inset:-6%; border-radius:28px;
+  background: conic-gradient(from 0deg, var(--violet), var(--cyan), var(--coral), var(--violet));
+  filter: blur(28px); opacity:0.35;
+  animation: ringSpin 10s linear infinite;
+}
+@keyframes ringSpin{ to{ transform:rotate(360deg); } }
+
+.hero-photo-frame{
+  position:relative; width:100%; height:100%; border-radius:22px; overflow:hidden;
+  border:1px solid var(--border-strong);
+  background:var(--bg-1);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  transform-style:preserve-3d; will-change:transform;
+}
+.hero-photo-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+.hero-photo-glare{
+  position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(125deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 32%);
+  mix-blend-mode:overlay;
+}
+.hero-photo-tagline{
+  position:absolute; bottom:16px; left:16px; z-index:4;
+  font-family:var(--font-mono); font-size:11px; letter-spacing:1px; color:#fff;
+  background:rgba(6,7,12,0.55); border:1px solid rgba(255,255,255,0.14);
+  padding:7px 12px; border-radius:100px; backdrop-filter: blur(8px);
+  display:flex; align-items:center; gap:8px;
+}
+
+/* thin scroll progress bar */
+.scroll-progress{
+  position:fixed; top:0; left:0; right:0; height:2.5px; z-index:101;
+  background:linear-gradient(90deg, var(--violet), var(--cyan));
+  transform-origin:left; transform:scaleX(0);
+}
+
+/* timeline scroll-scrubbed progress overlay, added by JS */
+.timeline-progress{
+  position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+  background:linear-gradient(var(--cyan), var(--violet));
+  transform-origin:top; transform:scaleY(0);
+  box-shadow:0 0 8px rgba(78,234,208,0.6);
+}
+
+.hero-eyebrow{
+  font-family:var(--font-mono); font-size:12.5px; letter-spacing:2px; color:var(--cyan);
+  display:flex; align-items:center; gap:10px; margin-bottom:24px;
+}
+.pulse-dot{ width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1);} 50%{ opacity:.4; transform:scale(0.7);} }
+
+.hero-title{
+  font-family:var(--font-display); font-weight:800; letter-spacing:-0.02em;
+  font-size:clamp(52px, 10vw, 128px); line-height:0.96;
+  background:linear-gradient(120deg,#fff 30%, var(--cyan) 65%, var(--violet) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  margin-bottom:22px;
+}
+.hero-subtitle{
+  font-family:var(--font-display); font-weight:500; font-size:clamp(18px,2.6vw,26px);
+  color:var(--text); max-width:620px; margin-bottom:14px;
+}
+.hero-desc{ color:var(--text-dim); font-size:16px; max-width:520px; margin-bottom:38px; }
+
+.hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+.btn{
+  font-family:var(--font-mono); font-size:13px; letter-spacing:0.3px;
+  padding:14px 26px; border-radius:100px; display:inline-flex; align-items:center; gap:8px;
+  transition: all .25s var(--ease); position:relative; overflow:hidden;
+}
+.btn-primary{ background:linear-gradient(120deg,var(--violet),#6857e8); color:#fff; font-weight:600; box-shadow:0 8px 30px rgba(124,108,255,0.35); }
+.btn-primary:hover{ transform:translateY(-3px); box-shadow:0 14px 40px rgba(124,108,255,0.5); }
+.btn-ghost{ border:1px solid var(--border-strong); color:var(--text); }
+.btn-ghost:hover{ border-color:var(--cyan); color:var(--cyan); transform:translateY(-3px); background:rgba(78,234,208,0.06); }
+
+.scroll-cue{
+  position:absolute; bottom:38px; left:50%; transform:translateX(-50%); z-index:3;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  font-family:var(--font-mono); font-size:10.5px; letter-spacing:3px; color:var(--text-faint);
+}
+.scroll-line{ width:1px; height:44px; background:var(--border-strong); position:relative; overflow:hidden; }
+.scroll-line i{
+  position:absolute; top:-100%; left:0; width:100%; height:100%; background:linear-gradient(var(--cyan),transparent);
+  animation: scrollDown 1.8s ease-in-out infinite;
+}
+@keyframes scrollDown{ to{ top:100%; } }
+
+/* reveal-up utility (hero entrance, driven by JS/GSAP toggling .in) */
+.reveal-up{ opacity:0; transform:translateY(28px); }
+.reveal-up.in{ opacity:1; transform:translateY(0); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+
+/* generic scroll reveal for sections (data-reveal, toggled by IntersectionObserver) */
+[data-reveal]{ opacity:0; transform:translateY(30px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+[data-reveal].in{ opacity:1; transform:translateY(0); }
+
+/* ============================================================================
+   SECTIONS / TYPE
+============================================================================ */
+.section{ position:relative; padding:130px 0; }
+.section-contact{ padding-bottom:110px; }
+.section-eyebrow{
+  font-family:var(--font-mono); font-size:12.5px; letter-spacing:2.5px; color:var(--violet);
+  margin-bottom:18px; text-transform:uppercase;
+}
+.section-title{
+  font-family:var(--font-display); font-weight:700; font-size:clamp(30px,4.2vw,48px);
+  letter-spacing:-0.01em; margin-bottom:18px; max-width:14ch;
+}
+.section-title-lg{
+  font-family:var(--font-display); font-weight:800; font-size:clamp(36px,7vw,72px);
+  letter-spacing:-0.02em; margin-bottom:22px;
+}
+.section-lede{ color:var(--text-dim); font-size:16px; line-height:1.7; max-width:600px; margin-bottom:56px; }
+
+.glass-panel{
+  background:var(--glass); border:1px solid var(--border); border-radius:var(--radius);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+}
+
+/* ============================================================================
+   ABOUT
+============================================================================ */
+.about-grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:60px; align-items:start; }
+@media (max-width:900px){ .about-grid{ grid-template-columns:1fr; gap:36px; } }
+.about-copy p{ color:var(--text-dim); font-size:17px; line-height:1.85; }
+.lang-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:28px; }
+.chip{
+  font-family:var(--font-mono); font-size:12px; color:var(--text-dim);
+  border:1px solid var(--border); padding:7px 14px; border-radius:100px;
+  transition: border-color .2s, color .2s;
+}
+.chip:hover{ border-color:var(--cyan); color:var(--cyan); }
+
+.about-panels{ display:flex; flex-direction:column; gap:18px; }
+.panel-tilt{ padding:26px 28px; transition: transform .25s var(--ease), border-color .25s var(--ease); transform-style:preserve-3d; will-change:transform; }
+.panel-tilt:hover{ border-color:var(--border-strong); }
+.panel-label{
+  font-family:var(--font-mono); font-size:11px; letter-spacing:1.5px; color:var(--cyan);
+  text-transform:uppercase; display:block; margin-bottom:12px;
+}
+.panel-text{ color:var(--text-dim); font-size:14.5px; line-height:1.7; }
+.edu-title{ font-family:var(--font-display); font-weight:600; font-size:19px; margin-bottom:4px; }
+.edu-sub{ color:var(--text-dim); font-size:14px; margin-bottom:4px; }
+.edu-period{ font-family:var(--font-mono); color:var(--text-faint); font-size:12px; margin-bottom:10px; display:block; }
+.focus-list{ display:flex; flex-direction:column; gap:10px; }
+.focus-list li{ color:var(--text-dim); font-size:14px; padding-left:18px; position:relative; }
+.focus-list li::before{ content:'→'; position:absolute; left:0; color:var(--violet); }
+
+/* ============================================================================
+   SKILLS CONSTELLATION
+============================================================================ */
+.constellation-stage{
+  position:relative; width:100%; height:560px; border-radius:var(--radius);
+  border:1px solid var(--border); background:radial-gradient(circle at 50% 50%, var(--bg-2), var(--bg-1));
+  overflow:hidden; margin-bottom:36px; cursor:grab;
+}
+.constellation-stage:active{ cursor:grabbing; }
+#skillsCanvas{ width:100%; height:100%; display:block; }
+.constellation-tooltip{
+  position:absolute; pointer-events:none; z-index:5;
+  background:rgba(10,12,20,0.92); border:1px solid var(--border-strong); border-radius:8px;
+  padding:10px 14px; font-family:var(--font-mono); font-size:12px; color:var(--text);
+  opacity:0; transform:translate(-50%,-130%); transition:opacity .15s;
+  white-space:nowrap; backdrop-filter:blur(10px);
+}
+.constellation-tooltip.show{ opacity:1; }
+.constellation-tooltip strong{ color:var(--cyan); display:block; margin-bottom:2px; }
+
+.skills-legend{ display:flex; gap:24px; flex-wrap:wrap; }
+.legend-item{ display:flex; align-items:center; gap:9px; font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim); }
+.legend-dot{ width:9px; height:9px; border-radius:50%; }
+
+/* ============================================================================
+   PROJECTS
+============================================================================ */
+.projects-grid{ display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+@media (max-width:900px){ .projects-grid{ grid-template-columns:1fr; } }
+
+.project-card{
+  padding:36px; border-radius:var(--radius); position:relative; overflow:hidden;
+  transition: transform .4s var(--ease), border-color .3s;
+  transform-style:preserve-3d;
+}
+.project-card:hover{ border-color:var(--border-strong); }
+.project-card::before{
+  content:''; position:absolute; inset:0; opacity:0; transition:opacity .4s;
+  background: radial-gradient(320px circle at var(--mx,50%) var(--my,50%), rgba(124,108,255,0.14), transparent 60%);
+  pointer-events:none;
+}
+.project-card:hover::before{ opacity:1; }
+
+.project-tag{ font-family:var(--font-mono); font-size:11px; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; }
+.project-card h3{ font-family:var(--font-display); font-size:25px; font-weight:700; margin:10px 0 8px; }
+.project-period{ font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); margin-bottom:18px; display:block; }
+.project-card p{ color:var(--text-dim); font-size:15px; line-height:1.75; margin-bottom:22px; }
+.project-stack{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px; }
+.project-actions{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+.project-actions a{ font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim); border-bottom:1px solid transparent; }
+.project-actions a:hover{ color:var(--cyan); border-color:var(--cyan); }
+.project-more{
+  font-family:var(--font-mono); font-size:12.5px; color:var(--violet); margin-left:auto;
+  display:flex; align-items:center; gap:6px;
+}
+.project-more:hover{ color:var(--cyan); }
+
+/* ============================================================================
+   MODAL (projects + certificates)
+============================================================================ */
+.modal-backdrop{
+  position:fixed; inset:0; z-index:200; background:rgba(4,5,9,0.75); backdrop-filter: blur(6px);
+  display:flex; align-items:center; justify-content:center; padding:24px;
+  opacity:0; visibility:hidden; transition:opacity .3s var(--ease), visibility .3s var(--ease);
+}
+.modal-backdrop.open{ opacity:1; visibility:visible; }
+.modal{
+  max-width:680px; width:100%; max-height:86vh; overflow-y:auto; padding:44px;
+  position:relative; transform:scale(0.94) translateY(16px); transition: transform .35s var(--ease);
+  border-color:var(--border-strong);
+}
+.modal-backdrop.open .modal{ transform:scale(1) translateY(0); }
+.modal-close{
+  position:absolute; top:18px; right:18px; width:36px; height:36px; border-radius:50%;
+  border:1px solid var(--border); display:flex; align-items:center; justify-content:center;
+  color:var(--text-dim); transition:.2s;
+}
+.modal-close:hover{ color:var(--text); border-color:var(--border-strong); }
+.modal h3{ font-family:var(--font-display); font-size:28px; margin-bottom:6px; }
+.modal .modal-tag{ font-family:var(--font-mono); font-size:12px; color:var(--cyan); margin-bottom:20px; display:block; }
+.modal p{ color:var(--text-dim); font-size:15px; line-height:1.8; margin-bottom:18px; }
+.modal h4{ font-family:var(--font-mono); font-size:12px; letter-spacing:1px; color:var(--violet); text-transform:uppercase; margin:22px 0 12px; }
+.modal ul{ display:flex; flex-direction:column; gap:10px; margin-bottom:8px; }
+.modal ul li{ color:var(--text-dim); font-size:14.5px; padding-left:20px; position:relative; }
+.modal ul li::before{ content:'▸'; position:absolute; left:0; color:var(--cyan); }
+.modal-links{ display:flex; gap:16px; margin-top:26px; flex-wrap:wrap; }
+
+.cert-modal img{ width:100%; border-radius:8px; margin-bottom:20px; border:1px solid var(--border); }
+
+/* ============================================================================
+   TIMELINE
+============================================================================ */
+.timeline{ position:relative; padding-left:36px; }
+.timeline::before{
+  content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+  background:linear-gradient(var(--violet), var(--cyan));
+  opacity:0.4;
+}
+.timeline-item{ position:relative; padding-bottom:46px; }
+.timeline-item:last-child{ padding-bottom:0; }
+.timeline-node{
+  position:absolute; left:-36px; top:2px; width:11px; height:11px; border-radius:50%;
+  background:var(--bg); border:2px solid var(--violet); box-shadow:0 0 0 4px rgba(124,108,255,0.12);
+}
+.timeline-item[data-type="certification"] .timeline-node{ border-color:var(--cyan); box-shadow:0 0 0 4px rgba(78,234,208,0.12); }
+.timeline-item[data-type="project"] .timeline-node{ border-color:var(--coral); box-shadow:0 0 0 4px rgba(255,138,92,0.12); }
+.timeline-item[data-type="focus"] .timeline-node{ background:linear-gradient(120deg,var(--violet),var(--cyan)); }
+.timeline-date{ font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); margin-bottom:6px; display:block; }
+.timeline-item h3{ font-family:var(--font-display); font-size:19px; font-weight:600; margin-bottom:4px; }
+.timeline-item .t-subtitle{ font-family:var(--font-mono); font-size:12.5px; color:var(--cyan); margin-bottom:8px; display:block; }
+.timeline-item p{ color:var(--text-dim); font-size:14.5px; line-height:1.7; max-width:560px; }
+
+/* ============================================================================
+   CERTIFICATIONS GRID
+============================================================================ */
+.certs-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+@media (max-width:900px){ .certs-grid{ grid-template-columns:1fr; } }
+.cert-card{
+  padding:0; border-radius:var(--radius); overflow:hidden; cursor:pointer;
+  transition: transform .35s var(--ease), border-color .3s;
+}
+.cert-card:hover{ transform:translateY(-6px); border-color:var(--border-strong); }
+.cert-thumb{ position:relative; aspect-ratio:4/3; overflow:hidden; background:#0d1018; }
+.cert-thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .5s var(--ease); }
+.cert-card:hover .cert-thumb img{ transform:scale(1.06); }
+.cert-thumb::after{ content:'VIEW ONLY'; position:absolute; bottom:10px; right:10px; font-family:var(--font-mono); font-size:9.5px; letter-spacing:1px; color:rgba(255,255,255,0.85); background:rgba(0,0,0,0.4); padding:4px 9px; border-radius:4px; backdrop-filter: blur(4px);}
+.cert-body{ padding:22px 24px; }
+.cert-issuer{ font-family:var(--font-mono); font-size:11px; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block;}
+.cert-body h3{ font-family:var(--font-display); font-size:17px; font-weight:600; margin-bottom:8px; line-height:1.3; }
+.cert-date{ font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); }
+
+/* ============================================================================
+   GITHUB
+============================================================================ */
+.github-panel{ padding:40px; display:flex; flex-wrap:wrap; gap:40px; align-items:center; }
+.github-loading{ color:var(--text-faint); font-family:var(--font-mono); font-size:13px; }
+.gh-avatar{ width:88px; height:88px; border-radius:16px; border:1px solid var(--border-strong); }
+.gh-meta h3{ font-family:var(--font-display); font-size:22px; margin-bottom:4px; }
+.gh-meta p{ color:var(--text-dim); font-size:14px; margin-bottom:14px; }
+.gh-stats{ display:flex; gap:28px; }
+.gh-stat-num{ font-family:var(--font-display); font-weight:700; font-size:24px; color:var(--cyan); }
+.gh-stat-label{ font-family:var(--font-mono); font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:1px; }
+.gh-cta{ margin-left:auto; }
+@media (max-width:700px){ .gh-cta{ margin-left:0; } }
+
+/* ============================================================================
+   CONTACT
+============================================================================ */
+.contact-wrap{ text-align:center; }
+.contact-wrap .section-eyebrow{ display:flex; justify-content:center; }
+.contact-wrap .section-lede{ margin:0 auto 50px; }
+.contact-links{ display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+.contact-link{
+  font-family:var(--font-mono); font-size:14px; padding:18px 28px; border:1px solid var(--border);
+  border-radius:var(--radius-sm); display:flex; align-items:center; gap:12px; transition:all .25s var(--ease);
+}
+.contact-link:hover{ border-color:var(--violet); background:var(--violet-soft); transform:translateY(-4px); }
+
+/* ============================================================================
+   FOOTER
+============================================================================ */
+#siteFooter{ border-top:1px solid var(--border); padding:34px 0; }
+.footer-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+.footer-inner span{ font-family:var(--font-mono); font-size:12px; color:var(--text-faint); }
+.footer-links{ display:flex; gap:20px; }
+.footer-links a{ font-family:var(--font-mono); font-size:12px; color:var(--text-faint); transition:color .2s; }
+.footer-links a:hover{ color:var(--cyan); }
+
+@media (max-width:600px){
+  .wrap{ padding:0 20px; }
+  .section{ padding:90px 0; }
+  .certs-grid, .projects-grid{ gap:18px; }
+}
+
+</style>
+</head>
+<body>
+
+<noscript>
+  <div style="padding:40px;font-family:sans-serif;max-width:640px;margin:0 auto;">
+    <h1>Rachith Kumar — Aspiring Data Analyst / Data Scientist</h1>
+    <p>This portfolio uses JavaScript for its 3D visuals and interactions. Please enable JavaScript to view it in full, or contact rachirachith8@gmail.com / github.com/rachi2006 directly.</p>
+  </div>
+</noscript>
+
+<!-- ============ LOADER ============ -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-core">
+    <svg viewBox="0 0 100 100" class="loader-ring">
+      <defs>
+        <linearGradient id="loaderGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#7C6CFF" />
+          <stop offset="100%" stop-color="#4EEAD0" />
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="42" />
+    </svg>
+    <div class="loader-glyph">RK</div>
+  </div>
+  <div class="loader-text" id="loaderText">INITIALIZING…</div>
+</div>
+
+<!-- ============ CUSTOM CURSOR ============ -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="logo" data-cursor="link">
+      <img class="logo-avatar" src="assets/profile/profile-avatar.jpg" alt="Rachith Kumar" />
+      Rachith<span class="logo-accent">.</span>
+    </a>
+    <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" data-cursor="link">About</a>
+      <a href="#skills" data-cursor="link">Skills</a>
+      <a href="#projects" data-cursor="link">Projects</a>
+      <a href="#journey" data-cursor="link">Journey</a>
+      <a href="#certifications" data-cursor="link">Certs</a>
+      <a href="#contact" class="nav-cta" data-cursor="link">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <header id="hero" aria-label="Introduction">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero-vignette" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+
+    <div class="hero-content wrap">
+      <div class="hero-columns">
+        <div class="hero-text-col">
+          <p class="hero-eyebrow reveal-up" data-cursor="text">
+            <span class="pulse-dot"></span> OPEN TO WORK · DATA ANALYST / DATA SCIENTIST
+          </p>
+          <h1 class="hero-title">
+            <span class="reveal-up" data-delay="1">Rachith Kumar</span>
+          </h1>
+          <p class="hero-subtitle reveal-up" data-delay="2">
+            Turning raw, messy data into decisions — Python, SQL, and dashboards people actually open.
+          </p>
+          <p class="hero-desc reveal-up" data-delay="3">
+            B.Tech Computer Science undergraduate at Parul University, based in Vadodara, Gujarat.
+          </p>
+          <div class="hero-ctas reveal-up" data-delay="4">
+            <a href="#projects" class="btn btn-primary" data-cursor="button">
+              <span>View Projects</span>
+            </a>
+            <a href="https://github.com/rachi2006" target="_blank" rel="noopener" class="btn btn-ghost" data-cursor="button">
+              <span>GitHub</span>
+            </a>
+            <a href="assets/resume/Rachith_Kumar_Resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost" data-cursor="button">
+              <span>Résumé</span>
+            </a>
+            <a href="#contact" class="btn btn-ghost" data-cursor="button">
+              <span>Contact Me</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-photo-stage reveal-up" data-delay="2" aria-hidden="false">
+          <div class="hero-photo-ring"></div>
+          <div class="hero-photo-frame">
+            <img src="assets/profile/profile.jpg" alt="Portrait of Rachith Kumar" />
+            <div class="hero-photo-glare"></div>
+          </div>
+          <div class="hero-photo-tagline">
+            <span class="pulse-dot"></span> Vadodara, Gujarat
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue reveal-up" data-delay="5" aria-hidden="true">
+      <span>SCROLL</span>
+      <div class="scroll-line"><i></i></div>
+    </div>
+  </header>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section" aria-label="About">
+    <div class="wrap">
+      <p class="section-eyebrow" data-reveal>Digital Profile / 01</p>
+      <h2 class="section-title">About the developer behind this screen.</h2>
+
+      <div class="about-grid">
+        <div class="about-copy" data-reveal>
+          <p id="aboutSummary"></p>
+          <div class="lang-row" id="langRow"></div>
+        </div>
+
+        <div class="about-panels" data-reveal>
+          <div class="glass-panel panel-tilt" data-tilt>
+            <span class="panel-label">Education</span>
+            <div id="eduPanel"></div>
+          </div>
+          <div class="glass-panel panel-tilt" data-tilt>
+            <span class="panel-label">Current Focus</span>
+            <ul id="focusList" class="focus-list"></ul>
+          </div>
+          <div class="glass-panel panel-tilt" data-tilt>
+            <span class="panel-label">Career Direction</span>
+            <p id="careerDirection" class="panel-text"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills" class="section" aria-label="Skills">
+    <div class="wrap">
+      <p class="section-eyebrow" data-reveal>Technology Constellation / 02</p>
+      <h2 class="section-title">The stack, mapped in orbit.</h2>
+      <p class="section-lede" data-reveal>
+        Drag to rotate. Hover a node for detail. Every skill below is grouped exactly as it appears on Rachith's resume.
+      </p>
+
+      <div class="constellation-stage" data-reveal>
+        <canvas id="skillsCanvas"></canvas>
+        <div class="constellation-tooltip" id="skillTooltip" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="skills-legend" id="skillsLegend"></div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects" class="section" aria-label="Projects">
+    <div class="wrap">
+      <p class="section-eyebrow" data-reveal>Selected Work / 03</p>
+      <h2 class="section-title">Built, shipped, and pushed to GitHub.</h2>
+      <p class="section-lede" data-reveal>Two projects — one analytical, one full-stack — covering the range a data role needs.</p>
+
+      <div class="projects-grid" id="projectsGrid"></div>
+    </div>
+  </section>
+
+  <!-- Project detail modal -->
+  <div class="modal-backdrop" id="projectModalBackdrop">
+    <div class="modal glass-panel" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close project details">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ============ JOURNEY / TIMELINE ============ -->
+  <section id="journey" class="section" aria-label="Journey">
+    <div class="wrap">
+      <p class="section-eyebrow" data-reveal>Journey / 04</p>
+      <h2 class="section-title">Education → learning → shipped work.</h2>
+      <p class="section-lede" data-reveal>A chronological trail through certifications and projects, straight from the record.</p>
+
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- ============ CERTIFICATIONS ============ -->
+  <section id="certifications" class="section" aria-label="Certifications">
+    <div class="wrap">
+      <p class="section-eyebrow" data-reveal>Verified / 05</p>
+      <h2 class="section-title">Certifications &amp; achievements.</h2>
+      <p class="section-lede" data-reveal>Click any card to preview the certificate. Images are for viewing only.</p>
+
+      <div class="certs-grid" id="certsGrid"></div>
+    </div>
+  </section>
+
+  <!-- Certificate preview modal -->
+  <div class="modal-backdrop" id="certModalBackdrop">
+    <div class="modal cert-modal glass-panel" id="certModal" role="dialog" aria-modal="true" aria-labelledby="certModalTitle">
+      <button class="modal-close" id="certModalClose" aria-label="Close certificate preview">✕</button>
+      <div id="certModalContent"></div>
+    </div>
+  </div>
+
+  <!-- ============ GITHUB ============ -->
+  <section id="github" class="section" aria-label="GitHub activity">
+    <div class="wrap">
+      <p class="section-eyebrow" data-reveal>Version Control / 06</p>
+      <h2 class="section-title">Live from GitHub.</h2>
+
+      <div class="github-panel glass-panel" data-reveal id="githubPanel">
+        <div class="github-loading" id="githubLoading">Fetching live profile data…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section section-contact" aria-label="Contact">
+    <div class="wrap contact-wrap">
+      <p class="section-eyebrow" data-reveal>Signal / 07</p>
+      <h2 class="section-title-lg">Let's build something meaningful.</h2>
+      <p class="section-lede" data-reveal id="contactOpenTo"></p>
+
+      <div class="contact-links" id="contactLinks" data-reveal></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer id="siteFooter">
+  <div class="wrap footer-inner">
+    <span>© <span id="year"></span> Rachith Kumar</span>
+    <div class="footer-links" id="footerLinks"></div>
+  </div>
+</footer>
+
+<script type="module">
+import * as THREE from "three";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// ---- portfolioData.js ----
+
+// ============================================================================
+// PORTFOLIO DATA — single source of truth.
+// Every piece of content rendered on the site is pulled from here.
+// Nothing in this file is invented — it is transcribed directly from
+// Rachith's resume and certificate uploads. Update this file to update
+// the site; you should never need to touch component code to change content.
+// ============================================================================
+
+const profile = {
+  name: "Rachith Kumar",
+  title: "Aspiring Data Analyst / Data Scientist",
+  location: "Vadodara, Gujarat, India",
+  email: "rachirachith8@gmail.com",
+  phone: "+91 86189 68823",
+  github: "https://github.com/rachi2006",
+  githubUsername: "rachi2006",
+  // No LinkedIn URL was present in the source resume — add it here when available.
+  linkedin: null,
+  resumeUrl: "assets/resume/Rachith_Kumar_Resume.pdf",
+  photo: "assets/profile/profile.jpg",
+  photoAvatar: "assets/profile/profile-avatar.jpg",
+  summary:
+    "Computer Science undergraduate (B.Tech, Parul University) with hands-on experience across the data analytics stack — Python, SQL, Excel, Power BI, and Tableau — plus practical exposure to forensic technology and business-insight reporting through Deloitte and Tata Forage job simulations. Built and deployed a full-stack Flask/MongoDB web application and an Excel-based analytics dashboard covering 1.5B+ user data points. Seeking an entry-level Data Analyst/Data Scientist role to apply these skills on real business problems.",
+  openTo: "Entry-level Data Analyst / Data Scientist roles & internships",
+};
+
+// Skill nodes rendered on the 3D constellation. `group` drives node color.
+// `weight` (0-1) drives node size / orbital radius — a rough, honestly-stated
+// proficiency signal, not a certification count.
+const skillGroups = [
+  {
+    id: "languages",
+    label: "Languages & Querying",
+    color: "#7C6CFF",
+    skills: [
+      { name: "Python", detail: "Pandas, NumPy", weight: 0.85 },
+      { name: "SQL", detail: "Querying & joins", weight: 0.82 },
+    ],
+  },
+  {
+    id: "bi",
+    label: "Visualization & BI",
+    color: "#4EEAD0",
+    skills: [
+      { name: "Power BI", detail: "Dashboards & reports", weight: 0.72 },
+      { name: "Tableau", detail: "Data visualization", weight: 0.7 },
+      { name: "Excel", detail: "Pivot tables, KPI dashboards, charts", weight: 0.9 },
+    ],
+  },
+  {
+    id: "analysis",
+    label: "Data Analysis",
+    color: "#FF8A5C",
+    skills: [
+      { name: "Data Cleaning", detail: "Raw → structured", weight: 0.85 },
+      { name: "EDA", detail: "Exploratory data analysis", weight: 0.8 },
+      { name: "Statistical Consultation", detail: "", weight: 0.65 },
+      { name: "Business Insight Reporting", detail: "", weight: 0.78 },
+    ],
+  },
+  {
+    id: "dev",
+    label: "Development",
+    color: "#5CC8FF",
+    skills: [
+      { name: "Flask", detail: "Backend web apps", weight: 0.75 },
+      { name: "Django", detail: "", weight: 0.55 },
+      { name: "MongoDB", detail: "Document database", weight: 0.7 },
+      { name: "Git / GitHub", detail: "Version control", weight: 0.8 },
+    ],
+  },
+];
+
+const languages = ["English", "Hindi", "Kannada", "Telugu"];
+
+const projects = [
+  {
+    id: "ai-usage-dashboard",
+    name: "AI Usage Dashboard 2026",
+    tag: "Excel Analytics Dashboard",
+    period: "2026",
+    description:
+      "An interactive KPI dashboard built in Microsoft Excel analyzing global AI adoption trends — designed to make a genuinely large, messy dataset legible to a non-technical audience.",
+    problem:
+      "Global AI usage data (1.5B+ monthly users) needed to be turned into a dashboard that non-technical stakeholders could read at a glance.",
+    features: [
+      "Cleaned and structured raw usage data, then modeled it with pivot tables for analysis",
+      "Designed KPI cards and charts surfacing insights on 1.5B+ monthly AI users and adoption trends across demographics and industries",
+      "Applied dashboard design principles to make complex trend data accessible to a non-technical audience",
+    ],
+    stack: ["Excel", "Pivot Tables", "Data Cleaning", "KPI Design"],
+    github: "https://github.com/rachi2006/Data_about_AI",
+    demo: null,
+    image: null,
+  },
+  {
+    id: "skillpath",
+    name: "SkillPath",
+    tag: "Personalized Learning Roadmap Generator",
+    period: "Jun 2026 – Present",
+    description:
+      "A full-stack web app (Flask, MongoDB) that generates structured, skill-based learning roadmaps for any topic a user enters, then tracks their progress through it.",
+    problem:
+      "Learners searching for a new skill face scattered resources with no structured path or way to track progress.",
+    features: [
+      "Built secure authentication with bcrypt password hashing and session-based login",
+      "Designed a roadmap engine that generates structured topic paths with resources for any input skill",
+      "Implemented a progress-tracking dashboard letting users mark topics complete and track learning journeys",
+    ],
+    stack: ["Flask", "MongoDB", "bcrypt", "Python"],
+    github: "https://github.com/rachi2006/SkillPath",
+    demo: "https://skillpath-sc6x.onrender.com",
+    image: null,
+  },
+];
+
+const education = [
+  {
+    degree: "B.Tech, Computer Science",
+    institution: "Parul University, Gujarat",
+    period: "Jun 2026 – Pursuing",
+    detail:
+      "Relevant coursework: Python, Data Structures, Statistics, Databases (SQL), Data Analysis.",
+  },
+];
+
+const certifications = [
+  {
+    id: "deloitte",
+    issuer: "Deloitte Australia",
+    name: "Data Analytics Job Simulation",
+    platform: "Forage",
+    date: "Jun 21, 2026",
+    dateSort: "2026-06-21",
+    detail: "Completed practical tasks in data analysis and forensic technology.",
+    image: "assets/certificates/deloitte.jpg",
+    verifyLabel: "Verification code available on request",
+    link: null,
+  },
+  {
+    id: "tata",
+    issuer: "Tata Group",
+    name: "Data Visualisation: Empowering Business with Effective Insights",
+    platform: "Forage",
+    date: "Jun 22, 2026",
+    dateSort: "2026-06-22",
+    detail:
+      "Framed business scenarios, chose and built effective visuals, and communicated data-driven insights.",
+    image: "assets/certificates/tata.jpg",
+    verifyLabel: "Verification code available on request",
+    link: null,
+  },
+  {
+    id: "aws",
+    issuer: "AWS Academy",
+    name: "Cloud Foundations — Graduate Training Badge",
+    platform: "AWS Academy",
+    date: "Mar 14, 2026",
+    dateSort: "2026-03-14",
+    detail: "20 course hours completed.",
+    image: "assets/certificates/aws.jpg",
+    verifyLabel: "View digital badge",
+    link: "https://www.credly.com/go/SCPHMyg3",
+  },
+];
+
+// Timeline is derived directly from the dated items above — chronological,
+// nothing invented. `type` drives the node's icon/color in the UI.
+const timeline = [
+  {
+    date: "Jun 2026",
+    dateSort: "2026-06-00",
+    type: "education",
+    title: "B.Tech, Computer Science",
+    subtitle: "Parul University, Gujarat",
+    detail: "Coursework in Python, Data Structures, Statistics, SQL, and Data Analysis.",
+  },
+  {
+    date: "Mar 14, 2026",
+    dateSort: "2026-03-14",
+    type: "certification",
+    title: "AWS Academy — Cloud Foundations",
+    subtitle: "Training Badge · 20 hours",
+    detail: "Completed the AWS Academy Graduate Cloud Foundations program.",
+  },
+  {
+    date: "Jun 21, 2026",
+    dateSort: "2026-06-21",
+    type: "certification",
+    title: "Deloitte Australia — Data Analytics",
+    subtitle: "Job Simulation · Forage",
+    detail: "Practical tasks in data analysis and forensic technology.",
+  },
+  {
+    date: "Jun 22, 2026",
+    dateSort: "2026-06-22",
+    type: "certification",
+    title: "Tata Group — Data Visualisation",
+    subtitle: "Job Simulation · Forage",
+    detail: "Framing business scenarios and communicating data-driven insights.",
+  },
+  {
+    date: "2026",
+    dateSort: "2026-06-15",
+    type: "project",
+    title: "AI Usage Dashboard 2026",
+    subtitle: "Excel Analytics Dashboard",
+    detail: "KPI dashboard covering 1.5B+ monthly AI users, published on GitHub.",
+  },
+  {
+    date: "Jun 2026 – Present",
+    dateSort: "2026-06-25",
+    type: "project",
+    title: "SkillPath",
+    subtitle: "Flask + MongoDB web app",
+    detail: "Personalized learning roadmap generator, live and deployed.",
+  },
+  {
+    date: "Now",
+    dateSort: "2099-01-01",
+    type: "focus",
+    title: "Current Focus",
+    subtitle: "Open to opportunities",
+    detail: profile.summary.split(". Seeking")[1]
+      ? "Seeking an entry-level Data Analyst/Data Scientist role to apply these skills on real business problems."
+      : "",
+  },
+];
+
+const currentFocus = {
+  heading: "Current Focus",
+  items: [
+    "Finishing B.Tech coursework in Data Structures, Statistics, SQL & Data Analysis",
+    "Deepening SQL and Python for analytics work",
+    "Building dashboard & full-stack projects end to end",
+    "Seeking an entry-level Data Analyst / Data Scientist role",
+  ],
+};
+
+const socialLinks = [
+  { label: "Email", value: profile.email, href: `mailto:${profile.email}`, icon: "mail" },
+  { label: "GitHub", value: "github.com/rachi2006", href: profile.github, icon: "github" },
+  { label: "Phone", value: profile.phone, href: `tel:${profile.phone.replace(/\s+/g, "")}`, icon: "phone" },
+];
+
+const seo = {
+  title: "Rachith Kumar — Aspiring Data Analyst / Data Scientist",
+  description:
+    "Portfolio of Rachith Kumar, a Computer Science undergraduate at Parul University building across Python, SQL, Power BI, Tableau and full-stack development. Explore projects, certifications, and skills.",
+  keywords:
+    "Rachith Kumar, Data Analyst, Data Scientist, Portfolio, Parul University, Python, SQL, Power BI, Tableau, Flask, MongoDB",
+};
+
+
+// ---- three/heroScene.js ----
+
+
+/**
+ * Hero 3D scene: a particle field ("data stream") drifting around a
+ * glowing wireframe icosahedron ("digital identity core"), with gentle
+ * camera parallax that follows the pointer. Respects prefers-reduced-motion
+ * and pauses when the canvas is off-screen for performance.
+ */
+function initHeroScene(canvas) {
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isSmall = window.innerWidth < 760;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(0, 0, isSmall ? 10 : 8);
+
+  // ---- particle field ----
+  const particleCount = isSmall ? 700 : 1600;
+  const positions = new Float32Array(particleCount * 3);
+  const speeds = new Float32Array(particleCount);
+  for (let i = 0; i < particleCount; i++) {
+    const radius = 6 + Math.random() * 10;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+    positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.6;
+    positions[i * 3 + 2] = radius * Math.cos(phi) * 0.6 - 4;
+    speeds[i] = 0.2 + Math.random() * 0.6;
+  }
+  const particleGeo = new THREE.BufferGeometry();
+  particleGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+  const particleMat = new THREE.PointsMaterial({
+    size: 0.045,
+    color: 0x8f8bff,
+    transparent: true,
+    opacity: 0.75,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
+  const particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+
+  // second cyan layer for depth
+  const particleCount2 = isSmall ? 250 : 500;
+  const positions2 = new Float32Array(particleCount2 * 3);
+  for (let i = 0; i < particleCount2; i++) {
+    const radius = 3 + Math.random() * 5;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    positions2[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+    positions2[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.6;
+    positions2[i * 3 + 2] = radius * Math.cos(phi) * 0.6 - 2;
+  }
+  const particleGeo2 = new THREE.BufferGeometry();
+  particleGeo2.setAttribute("position", new THREE.BufferAttribute(positions2, 3));
+  const particleMat2 = new THREE.PointsMaterial({
+    size: 0.05,
+    color: 0x4eead0,
+    transparent: true,
+    opacity: 0.55,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
+  const particles2 = new THREE.Points(particleGeo2, particleMat2);
+  scene.add(particles2);
+
+  // ---- wireframe core (digital identity core) ----
+  const coreGroup = new THREE.Group();
+  const coreGeo = new THREE.IcosahedronGeometry(1.7, 1);
+  const coreMat = new THREE.MeshBasicMaterial({
+    color: 0x7c6cff,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.55,
+  });
+  const core = new THREE.Mesh(coreGeo, coreMat);
+  coreGroup.add(core);
+
+  const innerGeo = new THREE.IcosahedronGeometry(1.15, 0);
+  const innerMat = new THREE.MeshBasicMaterial({ color: 0x4eead0, wireframe: true, transparent: true, opacity: 0.35 });
+  const inner = new THREE.Mesh(innerGeo, innerMat);
+  coreGroup.add(inner);
+
+  coreGroup.position.set(isSmall ? 0 : 2.6, isSmall ? -1.2 : 0.2, -1);
+  scene.add(coreGroup);
+
+  // small orbiting nodes around the core (representing tech fragments)
+  const nodeCount = 6;
+  const nodes = [];
+  for (let i = 0; i < nodeCount; i++) {
+    const geo = new THREE.OctahedronGeometry(0.08, 0);
+    const mat = new THREE.MeshBasicMaterial({ color: i % 2 === 0 ? 0x4eead0 : 0xff8a5c, transparent: true, opacity: 0.85 });
+    const mesh = new THREE.Mesh(geo, mat);
+    const angle = (i / nodeCount) * Math.PI * 2;
+    const radius = 2.4 + (i % 2) * 0.5;
+    mesh.userData = { angle, radius, speed: 0.15 + Math.random() * 0.15, yOff: Math.random() * Math.PI * 2 };
+    nodes.push(mesh);
+    coreGroup.add(mesh);
+  }
+
+  // pointer parallax target
+  const pointer = { x: 0, y: 0 };
+  const targetRot = { x: 0, y: 0 };
+  function onPointerMove(e) {
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) / window.innerWidth;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) / window.innerHeight;
+    pointer.x = x * 2 - 1;
+    pointer.y = y * 2 - 1;
+  }
+  window.addEventListener("mousemove", onPointerMove, { passive: true });
+  window.addEventListener("touchmove", onPointerMove, { passive: true });
+
+  function onResize() {
+    const w = window.innerWidth, h = window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  }
+  window.addEventListener("resize", onResize);
+
+  let visible = true;
+  const io = new IntersectionObserver((entries) => {
+    visible = entries[0].isIntersecting;
+  });
+  io.observe(canvas);
+
+  const clock = new THREE.Clock();
+  let raf = null;
+
+  function animate() {
+    raf = requestAnimationFrame(animate);
+    if (!visible) return;
+
+    const t = clock.getElapsedTime();
+
+    if (!prefersReduced) {
+      particles.rotation.y = t * 0.015;
+      particles2.rotation.y = -t * 0.02;
+      coreGroup.rotation.y = t * 0.12;
+      coreGroup.rotation.x = Math.sin(t * 0.2) * 0.08;
+
+      nodes.forEach((n) => {
+        const { angle, radius, speed, yOff } = n.userData;
+        const a = angle + t * speed;
+        n.position.set(Math.cos(a) * radius, Math.sin(t * 0.5 + yOff) * 0.5, Math.sin(a) * radius);
+      });
+    }
+
+    // camera parallax toward pointer, smoothed
+    targetRot.x += (pointer.y * 0.25 - targetRot.x) * 0.04;
+    targetRot.y += (pointer.x * 0.35 - targetRot.y) * 0.04;
+    camera.position.x = targetRot.y * 1.2;
+    camera.position.y = -targetRot.x * 0.8;
+    camera.lookAt(0, 0, 0);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  return {
+    destroy() {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", onPointerMove);
+      window.removeEventListener("touchmove", onPointerMove);
+      window.removeEventListener("resize", onResize);
+      io.disconnect();
+      renderer.dispose();
+      particleGeo.dispose();
+      particleGeo2.dispose();
+      coreGeo.dispose();
+      innerGeo.dispose();
+    },
+  };
+}
+
+
+// ---- three/skillsConstellation.js ----
+
+
+/**
+ * Renders every skill as a node positioned on a sphere ("technology
+ * constellation"). Drag to rotate, hover a node to see its detail in
+ * the tooltip element. Connecting lines are drawn between nodes in the
+ * same group to suggest a small network per category.
+ */
+function initSkillsConstellation(canvas, tooltipEl) {
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+  camera.position.z = 7;
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  // flatten skills with group metadata, and lay them out on a sphere
+  // via a golden-angle spiral for even distribution.
+  const flat = [];
+  skillGroups.forEach((g) => g.skills.forEach((s) => flat.push({ ...s, group: g })));
+
+  const nodeMeshes = [];
+  const radius = 2.6;
+  const n = flat.length;
+  const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+
+  flat.forEach((skill, i) => {
+    const y = 1 - (i / (n - 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
+    const theta = goldenAngle * i;
+    const pos = new THREE.Vector3(Math.cos(theta) * r * radius, y * radius, Math.sin(theta) * r * radius);
+
+    const size = 0.09 + skill.weight * 0.09;
+    const geo = new THREE.SphereGeometry(size, 20, 20);
+    const color = new THREE.Color(skill.group.color);
+    const mat = new THREE.MeshBasicMaterial({ color });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.copy(pos);
+    mesh.userData = { skill };
+    group.add(mesh);
+    nodeMeshes.push(mesh);
+
+    // glow halo sprite
+    const glowGeo = new THREE.SphereGeometry(size * 2.4, 12, 12);
+    const glowMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.12 });
+    const glow = new THREE.Mesh(glowGeo, glowMat);
+    glow.position.copy(pos);
+    group.add(glow);
+  });
+
+  // connective lines within each group
+  skillGroups.forEach((g) => {
+    const groupNodes = nodeMeshes.filter((m) => m.userData.skill.group.id === g.id);
+    for (let i = 0; i < groupNodes.length; i++) {
+      for (let j = i + 1; j < groupNodes.length; j++) {
+        const points = [groupNodes[i].position, groupNodes[j].position];
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+        const lineMat = new THREE.LineBasicMaterial({ color: new THREE.Color(g.color), transparent: true, opacity: 0.18 });
+        group.add(new THREE.Line(lineGeo, lineMat));
+      }
+    }
+  });
+
+  // faint outer wire sphere for structure
+  const wireGeo = new THREE.SphereGeometry(radius + 0.5, 16, 12);
+  const wireMat = new THREE.MeshBasicMaterial({ color: 0x2a2f45, wireframe: true, transparent: true, opacity: 0.25 });
+  group.add(new THREE.Mesh(wireGeo, wireMat));
+
+  // ---- interaction: drag to rotate, autorotate when idle ----
+  let dragging = false;
+  let lastX = 0, lastY = 0;
+  let velX = 0.0009, velY = 0.0003;
+  let idleTimer = null;
+
+  function pointerDown(e) {
+    dragging = true;
+    lastX = e.touches ? e.touches[0].clientX : e.clientX;
+    lastY = e.touches ? e.touches[0].clientY : e.clientY;
+    clearTimeout(idleTimer);
+  }
+  function pointerMove(e) {
+    if (!dragging) return;
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
+    const dx = x - lastX, dy = y - lastY;
+    group.rotation.y += dx * 0.005;
+    group.rotation.x += dy * 0.005;
+    velX = dx * 0.00025;
+    velY = dy * 0.00025;
+    lastX = x; lastY = y;
+  }
+  function pointerUp() {
+    dragging = false;
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { velX = 0.0009; velY = 0.0003; }, 1200);
+  }
+  canvas.addEventListener("pointerdown", pointerDown);
+  window.addEventListener("pointermove", pointerMove);
+  window.addEventListener("pointerup", pointerUp);
+  canvas.addEventListener("touchstart", pointerDown, { passive: true });
+  window.addEventListener("touchmove", pointerMove, { passive: true });
+  window.addEventListener("touchend", pointerUp);
+
+  // ---- hover detection via raycasting ----
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+  let hovered = null;
+
+  function onHoverMove(e) {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(nodeMeshes);
+    if (intersects.length > 0) {
+      const mesh = intersects[0].object;
+      if (hovered !== mesh) {
+        if (hovered) hovered.scale.set(1, 1, 1);
+        hovered = mesh;
+        hovered.scale.set(1.6, 1.6, 1.6);
+      }
+      const { skill } = mesh.userData;
+      tooltipEl.innerHTML = `<strong>${skill.name}</strong>${skill.detail ? skill.detail : skill.group.label}`;
+      tooltipEl.style.left = `${e.clientX - rect.left}px`;
+      tooltipEl.style.top = `${e.clientY - rect.top}px`;
+      tooltipEl.classList.add("show");
+      canvas.style.cursor = "pointer";
+    } else {
+      if (hovered) { hovered.scale.set(1, 1, 1); hovered = null; }
+      tooltipEl.classList.remove("show");
+      canvas.style.cursor = "grab";
+    }
+  }
+  canvas.addEventListener("mousemove", onHoverMove);
+  canvas.addEventListener("mouseleave", () => {
+    if (hovered) { hovered.scale.set(1, 1, 1); hovered = null; }
+    tooltipEl.classList.remove("show");
+  });
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    renderer.setSize(rect.width, rect.height);
+    camera.aspect = rect.width / rect.height;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  let visible = true;
+  const io = new IntersectionObserver((entries) => { visible = entries[0].isIntersecting; });
+  io.observe(canvas);
+
+  let raf = null;
+  function animate() {
+    raf = requestAnimationFrame(animate);
+    if (!visible) return;
+    if (!dragging && !prefersReduced) {
+      group.rotation.y += velX;
+      group.rotation.x += velY;
+    }
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  return {
+    destroy() {
+      cancelAnimationFrame(raf);
+      canvas.removeEventListener("pointerdown", pointerDown);
+      window.removeEventListener("pointermove", pointerMove);
+      window.removeEventListener("pointerup", pointerUp);
+      window.removeEventListener("resize", resize);
+      canvas.removeEventListener("mousemove", onHoverMove);
+      io.disconnect();
+      renderer.dispose();
+    },
+  };
+}
+
+
+// ---- ui/cursor.js ----
+
+/**
+ * Premium custom cursor: a small dot that tracks instantly, and a ring
+ * that trails with easing. Expands over interactive elements. Disabled
+ * entirely on touch devices (handled in CSS).
+ */
+function initCursor() {
+  if (window.matchMedia("(hover: none), (max-width: 900px)").matches) return;
+
+  const dot = document.getElementById("cursorDot");
+  const ring = document.getElementById("cursorRing");
+  if (!dot || !ring) return;
+
+  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+  let ringX = mouseX, ringY = mouseY;
+
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%,-50%)`;
+  });
+
+  function tick() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%,-50%)`;
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  const strongTargets = "button, .btn, .project-card, .cert-card, [data-cursor='button']";
+  const softTargets = "a, [data-cursor='link'], [data-cursor='text'], .chip, .panel-tilt";
+
+  document.addEventListener("mouseover", (e) => {
+    if (e.target.closest(strongTargets)) {
+      ring.classList.add("hover-strong");
+      ring.classList.remove("hover");
+    } else if (e.target.closest(softTargets)) {
+      ring.classList.add("hover");
+      ring.classList.remove("hover-strong");
+    }
+  });
+  document.addEventListener("mouseout", (e) => {
+    if (e.target.closest(strongTargets) || e.target.closest(softTargets)) {
+      ring.classList.remove("hover", "hover-strong");
+    }
+  });
+}
+
+
+// ---- ui/loader.js ----
+
+
+/**
+ * Short, elegant loading sequence: a few status lines typed into the
+ * loader, then a smooth fade into the hero. Capped at a max duration so
+ * navigation never feels blocked, even on a slow connection.
+ */
+function runLoader() {
+  return new Promise((resolve) => {
+    const loader = document.getElementById("loader");
+    const textEl = document.getElementById("loaderText");
+    const lines = ["INITIALIZING…", "LOADING DIGITAL IDENTITY…", "WELCOME."];
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      loader.classList.add("hidden");
+      document.body.style.overflow = "";
+      resolve();
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+    let i = 0;
+    const tl = gsap.timeline({
+      onComplete: () => {
+        loader.classList.add("hidden");
+        document.body.style.overflow = "";
+        resolve();
+      },
+    });
+
+    lines.forEach((line, idx) => {
+      tl.call(() => { textEl.textContent = line; }, null, idx * 0.55);
+    });
+    tl.to({}, { duration: 0.5 }); // small hold on "WELCOME."
+    tl.to(loader, { duration: 0.01 }); // marker, actual fade handled by CSS class
+
+    // Hard safety cap: never block longer than ~2.4s total.
+    setTimeout(() => {
+      if (loader && !loader.classList.contains("hidden")) {
+        loader.classList.add("hidden");
+        document.body.style.overflow = "";
+        resolve();
+      }
+    }, 2600);
+  });
+}
+
+
+// ---- ui/navigation.js ----
+
+function initNavigation() {
+  const navbar = document.getElementById("navbar");
+  const toggle = document.getElementById("navToggle");
+  const links = document.getElementById("navLinks");
+
+  function onScroll() {
+    navbar.classList.toggle("scrolled", window.scrollY > 40);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  toggle.addEventListener("click", () => {
+    const open = links.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+
+  links.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => {
+      links.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
+
+// ---- ui/scrollReveal.js ----
+
+/**
+ * Lightweight scroll-reveal: toggles `.in` on any element carrying
+ * [data-reveal] or .reveal-up (outside the hero — the hero's entrance
+ * is handled separately by the cinematic split-word intro in
+ * advancedAnimations.js) once it enters the viewport.
+ */
+function initScrollReveal() {
+  const all = document.querySelectorAll("[data-reveal], .reveal-up");
+  const els = Array.from(all).filter((el) => !el.closest("#hero"));
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduced) {
+    els.forEach((el) => el.classList.add("in"));
+    return;
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const delay = Number(entry.target.dataset.delay || 0) * 90;
+          setTimeout(() => entry.target.classList.add("in"), delay);
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+  );
+
+  els.forEach((el) => io.observe(el));
+}
+
+
+// ---- ui/renderContent.js ----
+
+
+function el(tag, className, html) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (html !== undefined) node.innerHTML = html;
+  return node;
+}
+
+/* ---------------------------- About ---------------------------- */
+function renderAbout() {
+  document.getElementById("aboutSummary").textContent = profile.summary;
+
+  const langRow = document.getElementById("langRow");
+  languages.forEach((l) => langRow.appendChild(el("span", "chip", l)));
+
+  const eduPanel = document.getElementById("eduPanel");
+  education.forEach((e) => {
+    eduPanel.appendChild(el("div", "edu-title", e.degree));
+    eduPanel.appendChild(el("div", "edu-sub", e.institution));
+    eduPanel.appendChild(el("span", "edu-period", e.period));
+    eduPanel.appendChild(el("p", "panel-text", e.detail));
+  });
+
+  const focusList = document.getElementById("focusList");
+  currentFocus.items.forEach((item) => focusList.appendChild(el("li", null, item)));
+
+  document.getElementById("careerDirection").textContent = profile.title + " — " + profile.openTo + ".";
+}
+
+/* ---------------------------- Skills legend ---------------------------- */
+function renderSkillsLegend() {
+  const legend = document.getElementById("skillsLegend");
+  skillGroups.forEach((g) => {
+    const item = el("div", "legend-item");
+    const dot = el("span", "legend-dot");
+    dot.style.background = g.color;
+    item.appendChild(dot);
+    item.appendChild(document.createTextNode(`${g.label} (${g.skills.length})`));
+    legend.appendChild(item);
+  });
+}
+
+/* ---------------------------- Projects ---------------------------- */
+function renderProjects(openModal) {
+  const grid = document.getElementById("projectsGrid");
+  projects.forEach((p) => {
+    const card = el("article", "project-card glass-panel");
+    card.innerHTML = `
+      <span class="project-tag">${p.tag}</span>
+      <h3>${p.name}</h3>
+      <span class="project-period">${p.period}</span>
+      <p>${p.description}</p>
+      <div class="project-stack">${p.stack.map((s) => `<span class="chip">${s}</span>`).join("")}</div>
+      <div class="project-actions">
+        ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener" data-cursor="link">GitHub ↗</a>` : ""}
+        ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" data-cursor="link">Live demo ↗</a>` : ""}
+        <button class="project-more" data-id="${p.id}">Details →</button>
+      </div>
+    `;
+
+    // subtle spotlight-follow effect
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+      card.style.setProperty("--my", `${e.clientY - rect.top}px`);
+    });
+
+    card.querySelector(".project-more").addEventListener("click", () => openModal(p.id));
+    card.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") return;
+      openModal(p.id);
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+function initProjectModal() {
+  const backdrop = document.getElementById("projectModalBackdrop");
+  const content = document.getElementById("modalContent");
+  const closeBtn = document.getElementById("modalClose");
+
+  function open(id) {
+    const p = projects.find((x) => x.id === id);
+    if (!p) return;
+    content.innerHTML = `
+      <h3 id="modalTitle">${p.name}</h3>
+      <span class="modal-tag">${p.tag} · ${p.period}</span>
+      <p>${p.description}</p>
+      <h4>Problem</h4>
+      <p>${p.problem}</p>
+      <h4>Key features</h4>
+      <ul>${p.features.map((f) => `<li>${f}</li>`).join("")}</ul>
+      <h4>Stack</h4>
+      <div class="project-stack">${p.stack.map((s) => `<span class="chip">${s}</span>`).join("")}</div>
+      <div class="modal-links">
+        ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener" class="btn btn-ghost" data-cursor="button">GitHub ↗</a>` : ""}
+        ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" class="btn btn-primary" data-cursor="button">Live demo ↗</a>` : ""}
+      </div>
+    `;
+    backdrop.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function close() {
+    backdrop.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  closeBtn.addEventListener("click", close);
+  backdrop.addEventListener("click", (e) => { if (e.target === backdrop) close(); });
+  window.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+
+  return open;
+}
+
+/* ---------------------------- Timeline ---------------------------- */
+function renderTimeline() {
+  const wrap = document.getElementById("timeline");
+  const sorted = [...timeline].sort((a, b) => a.dateSort.localeCompare(b.dateSort));
+  sorted.forEach((item) => {
+    const node = el("div", "timeline-item");
+    node.dataset.type = item.type;
+    node.innerHTML = `
+      <div class="timeline-node"></div>
+      <span class="timeline-date">${item.date}</span>
+      <h3>${item.title}</h3>
+      <span class="t-subtitle">${item.subtitle}</span>
+      <p>${item.detail}</p>
+    `;
+    wrap.appendChild(node);
+  });
+}
+
+/* ---------------------------- Certifications ---------------------------- */
+function renderCertifications(openCertModal) {
+  const grid = document.getElementById("certsGrid");
+  certifications.forEach((c) => {
+    const card = el("article", "cert-card glass-panel");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `Preview certificate: ${c.issuer} — ${c.name}`);
+    card.innerHTML = `
+      <div class="cert-thumb"><img src="${c.image}" alt="${c.issuer} — ${c.name} certificate" loading="lazy" /></div>
+      <div class="cert-body">
+        <span class="cert-issuer">${c.issuer}</span>
+        <h3>${c.name}</h3>
+        <span class="cert-date">${c.date}</span>
+      </div>
+    `;
+    card.addEventListener("click", () => openCertModal(c.id));
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openCertModal(c.id);
+      }
+    });
+    grid.appendChild(card);
+  });
+}
+
+function initCertModal() {
+  const backdrop = document.getElementById("certModalBackdrop");
+  const content = document.getElementById("certModalContent");
+  const closeBtn = document.getElementById("certModalClose");
+
+  function open(id) {
+    const c = certifications.find((x) => x.id === id);
+    if (!c) return;
+    content.innerHTML = `
+      <h3 id="certModalTitle">${c.name}</h3>
+      <span class="modal-tag">${c.issuer} · ${c.date}</span>
+      <img src="${c.image}" alt="${c.issuer} — ${c.name} certificate" />
+      <p>${c.detail}</p>
+      <div class="modal-links">
+        ${c.link ? `<a href="${c.link}" target="_blank" rel="noopener" class="btn btn-ghost" data-cursor="button">${c.verifyLabel} ↗</a>` : `<span class="panel-text">${c.verifyLabel}</span>`}
+      </div>
+    `;
+    backdrop.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function close() {
+    backdrop.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  closeBtn.addEventListener("click", close);
+  backdrop.addEventListener("click", (e) => { if (e.target === backdrop) close(); });
+  window.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+
+  return open;
+}
+
+/* ---------------------------- Contact / Footer ---------------------------- */
+function renderContact() {
+  document.getElementById("contactOpenTo").textContent = `Open to: ${profile.openTo}. Based in ${profile.location}.`;
+
+  const linksWrap = document.getElementById("contactLinks");
+  socialLinks.forEach((s) => {
+    const a = el("a", "contact-link");
+    a.href = s.href;
+    a.target = s.href.startsWith("http") ? "_blank" : "";
+    a.rel = "noopener";
+    a.setAttribute("data-cursor", "button");
+    a.innerHTML = `<span>${s.label}</span><span style="color:var(--text-faint)">${s.value}</span>`;
+    linksWrap.appendChild(a);
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const footerLinks = document.getElementById("footerLinks");
+
+  const ghLink = el("a", null, "GitHub");
+  ghLink.href = profile.github;
+  ghLink.target = "_blank";
+  ghLink.rel = "noopener";
+  footerLinks.appendChild(ghLink);
+
+  const mailLink = el("a", null, "Email");
+  mailLink.href = `mailto:${profile.email}`;
+  footerLinks.appendChild(mailLink);
+}
+
+/* ---------------------------- Panel tilt micro-interaction ---------------------------- */
+function initTilt() {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) return;
+  document.querySelectorAll("[data-tilt]").forEach((panel) => {
+    panel.addEventListener("mousemove", (e) => {
+      const rect = panel.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      panel.style.transform = `perspective(600px) rotateX(${-py * 6}deg) rotateY(${px * 6}deg) translateY(-2px)`;
+    });
+    panel.addEventListener("mouseleave", () => {
+      panel.style.transform = "";
+    });
+  });
+}
+
+/* ---------------------------- Init ---------------------------- */
+function renderAllContent() {
+  renderAbout();
+  renderSkillsLegend();
+
+  const openProjectModal = initProjectModal();
+  renderProjects(openProjectModal);
+
+  renderTimeline();
+
+  const openCertModal = initCertModal();
+  renderCertifications(openCertModal);
+
+  renderContact();
+  initTilt();
+}
+
+
+// ---- ui/github.js ----
+
+
+/**
+ * Pulls live public profile data from the GitHub REST API (no auth —
+ * subject to GitHub's unauthenticated rate limit). Only real numbers
+ * returned by GitHub are shown; nothing here is invented. On failure
+ * (offline, rate-limited), falls back to a clean manual-link panel.
+ */
+async function renderGithubPanel() {
+  const panel = document.getElementById("githubPanel");
+  const loading = document.getElementById("githubLoading");
+
+  try {
+    const res = await fetch(`https://api.github.com/users/${profile.githubUsername}`);
+    if (!res.ok) throw new Error("GitHub API error " + res.status);
+    const data = await res.json();
+
+    loading.remove();
+    panel.innerHTML = `
+      <img class="gh-avatar" src="${data.avatar_url}" alt="${data.login} GitHub avatar" loading="lazy" />
+      <div class="gh-meta">
+        <h3>@${data.login}</h3>
+        <p>${data.bio ? data.bio : profile.title}</p>
+        <div class="gh-stats">
+          <div><div class="gh-stat-num">${data.public_repos}</div><div class="gh-stat-label">Repos</div></div>
+          <div><div class="gh-stat-num">${data.followers}</div><div class="gh-stat-label">Followers</div></div>
+          <div><div class="gh-stat-num">${data.following}</div><div class="gh-stat-label">Following</div></div>
+        </div>
+      </div>
+      <a href="${data.html_url}" target="_blank" rel="noopener" class="btn btn-primary gh-cta" data-cursor="button"><span>View Profile ↗</span></a>
+    `;
+  } catch (err) {
+    loading.remove();
+    panel.innerHTML = `
+      <div class="gh-meta">
+        <h3>@${profile.githubUsername}</h3>
+        <p>Live stats couldn't be loaded right now — visit the profile directly.</p>
+      </div>
+      <a href="${profile.github}" target="_blank" rel="noopener" class="btn btn-primary gh-cta" data-cursor="button"><span>View Profile ↗</span></a>
+    `;
+  }
+}
+
+
+// ---- ui/advancedAnimations.js ----
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ----------------------------------------------------------------------
+   Hero title / subtitle — split into words, flip up into place with a
+   slight 3D rotation, staggered. Runs once, right after the loader.
+---------------------------------------------------------------------- */
+function playHeroIntro() {
+  const title = document.querySelector(".hero-title span");
+  const subtitle = document.querySelector(".hero-subtitle");
+
+  if (REDUCED || !title) {
+    document.querySelectorAll("#hero .reveal-up").forEach((el) => el.classList.add("in"));
+    return;
+  }
+
+  const words = title.textContent.split(" ");
+  title.innerHTML = words
+    .map((w) => `<span class="word-mask"><span class="word-inner">${w}&nbsp;</span></span>`)
+    .join("");
+
+  const tl = gsap.timeline({ delay: 0.1 });
+  tl.set(title, { opacity: 1, y: 0 })
+    .from(title.querySelectorAll(".word-inner"), {
+      yPercent: 120,
+      rotateX: -60,
+      transformOrigin: "50% 100%",
+      opacity: 0,
+      duration: 1,
+      ease: "power4.out",
+      stagger: 0.1,
+    })
+    .from(
+      subtitle,
+      { y: 24, opacity: 0, duration: 0.9, ease: "power3.out" },
+      "-=0.5"
+    );
+
+  // remaining hero elements (eyebrow, desc, ctas, scroll cue) fade up normally
+  document.querySelectorAll("#hero .reveal-up:not(.hero-subtitle)").forEach((el, i) => {
+    if (el.closest(".hero-title")) return;
+    const delay = 0.15 + Number(el.dataset.delay || 0) * 0.12;
+    gsap.to(el, { opacity: 1, y: 0, duration: 0.9, delay, ease: "power3.out" });
+  });
+}
+
+/* ----------------------------------------------------------------------
+   Section titles — 3D flip-in as they cross into view.
+---------------------------------------------------------------------- */
+function animateSectionTitles() {
+  gsap.utils.toArray(".section-title, .section-title-lg").forEach((title) => {
+    gsap.fromTo(
+      title,
+      { opacity: 0, y: 50, rotateX: -35, transformPerspective: 800, transformOrigin: "50% 100%" },
+      {
+        opacity: 1,
+        y: 0,
+        rotateX: 0,
+        duration: 1.1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: title, start: "top 88%" },
+      }
+    );
+  });
+}
+
+/* ----------------------------------------------------------------------
+   Cards — project & certification cards batch-reveal with stagger,
+   scale + slight rotation, as a group scrolls into view.
+---------------------------------------------------------------------- */
+function animateCardBatches() {
+  ScrollTrigger.batch(".project-card", {
+    start: "top 90%",
+    onEnter: (batch) =>
+      gsap.fromTo(
+        batch,
+        { opacity: 0, y: 60, scale: 0.92, rotateX: -12, transformPerspective: 900 },
+        { opacity: 1, y: 0, scale: 1, rotateX: 0, duration: 0.9, ease: "power3.out", stagger: 0.12 }
+      ),
+  });
+
+  ScrollTrigger.batch(".cert-card", {
+    start: "top 92%",
+    onEnter: (batch) =>
+      gsap.fromTo(
+        batch,
+        { opacity: 0, y: 50, rotateY: -18, transformPerspective: 900 },
+        { opacity: 1, y: 0, rotateY: 0, duration: 0.85, ease: "power3.out", stagger: 0.1 }
+      ),
+  });
+
+  ScrollTrigger.batch(".glass-panel.panel-tilt", {
+    start: "top 92%",
+    onEnter: (batch) => gsap.fromTo(batch, { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" }),
+  });
+}
+
+/* ----------------------------------------------------------------------
+   Timeline — connecting line draws in as you scroll, scrubbed to
+   scroll position; each node/card fades up as it's reached.
+---------------------------------------------------------------------- */
+function animateTimeline() {
+  const wrap = document.getElementById("timeline");
+  if (!wrap) return;
+
+  const progress = document.createElement("div");
+  progress.className = "timeline-progress";
+  wrap.appendChild(progress);
+
+  gsap.fromTo(
+    progress,
+    { scaleY: 0 },
+    {
+      scaleY: 1,
+      ease: "none",
+      transformOrigin: "top",
+      scrollTrigger: { trigger: wrap, start: "top 70%", end: "bottom 80%", scrub: 0.6 },
+    }
+  );
+
+  gsap.utils.toArray(".timeline-item").forEach((item, i) => {
+    gsap.fromTo(
+      item,
+      { opacity: 0, x: -30 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: { trigger: item, start: "top 88%" },
+      }
+    );
+  });
+}
+
+/* ----------------------------------------------------------------------
+   Parallax depth — hero background layers and the photo panel drift
+   at different speeds while scrolling past the hero.
+---------------------------------------------------------------------- */
+function initParallax() {
+  const hero = document.getElementById("hero");
+  if (!hero) return;
+
+  gsap.to(".hero-grid", {
+    yPercent: 18,
+    ease: "none",
+    scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
+  });
+  gsap.to(".hero-photo-frame", {
+    yPercent: -12,
+    ease: "none",
+    scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
+  });
+  gsap.to(".hero-content", {
+    yPercent: 8,
+    ease: "none",
+    scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
+  });
+}
+
+/* ----------------------------------------------------------------------
+   Magnetic buttons — CTA buttons pull slightly toward the cursor
+   within their bounds, spring back on leave.
+---------------------------------------------------------------------- */
+function initMagneticButtons() {
+  if (REDUCED || window.matchMedia("(hover: none)").matches) return;
+
+  document.querySelectorAll(".btn, .contact-link").forEach((btn) => {
+    const strength = btn.classList.contains("btn") ? 0.35 : 0.25;
+    let bounds;
+
+    btn.addEventListener("mouseenter", () => { bounds = btn.getBoundingClientRect(); });
+    btn.addEventListener("mousemove", (e) => {
+      if (!bounds) bounds = btn.getBoundingClientRect();
+      const relX = e.clientX - bounds.left - bounds.width / 2;
+      const relY = e.clientY - bounds.top - bounds.height / 2;
+      gsap.to(btn, { x: relX * strength, y: relY * strength, duration: 0.4, ease: "power2.out" });
+    });
+    btn.addEventListener("mouseleave", () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.4)" });
+    });
+  });
+}
+
+/* ----------------------------------------------------------------------
+   Photo panel — subtle idle float + pointer-reactive 3D tilt, plus a
+   slowly rotating conic-gradient ring behind the frame.
+---------------------------------------------------------------------- */
+function initPhotoTilt() {
+  const frame = document.querySelector(".hero-photo-frame");
+  if (!frame) return;
+
+  if (!REDUCED) {
+    gsap.to(frame, {
+      y: "+=14",
+      duration: 3.2,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+    });
+  }
+
+  if (window.matchMedia("(hover: none)").matches || REDUCED) return;
+
+  const stage = frame.parentElement;
+  stage.addEventListener("mousemove", (e) => {
+    const rect = frame.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    gsap.to(frame, {
+      rotateY: px * 18,
+      rotateX: -py * 18,
+      duration: 0.6,
+      ease: "power2.out",
+      transformPerspective: 900,
+    });
+  });
+  stage.addEventListener("mouseleave", () => {
+    gsap.to(frame, { rotateY: 0, rotateX: 0, duration: 0.8, ease: "power3.out" });
+  });
+}
+
+/* ----------------------------------------------------------------------
+   Nav progress indicator — thin bar tracking overall scroll position.
+---------------------------------------------------------------------- */
+function initScrollProgress() {
+  const bar = document.createElement("div");
+  bar.className = "scroll-progress";
+  document.body.appendChild(bar);
+  gsap.to(bar, {
+    scaleX: 1,
+    ease: "none",
+    scrollTrigger: { start: 0, end: "max", scrub: 0.3 },
+  });
+}
+
+function initAdvancedAnimations() {
+  animateSectionTitles();
+  animateCardBatches();
+  animateTimeline();
+  initParallax();
+  initMagneticButtons();
+  initPhotoTilt();
+  initScrollProgress();
+  ScrollTrigger.refresh();
+}
+
+
+// ---- main.js ----
+
+
+
+async function boot() {
+  // Content + interaction wiring can happen immediately — it's cheap and
+  // means the page is fully meaningful even before the loader finishes.
+  renderAllContent();
+  initNavigation();
+  initCursor();
+
+  // Heavy 3D scenes: init after first paint so the loader animation
+  // itself stays smooth.
+  requestAnimationFrame(() => {
+    const heroCanvas = document.getElementById("heroCanvas");
+    if (heroCanvas) initHeroScene(heroCanvas);
+
+    const skillsCanvas = document.getElementById("skillsCanvas");
+    const tooltip = document.getElementById("skillTooltip");
+    if (skillsCanvas && tooltip) initSkillsConstellation(skillsCanvas, tooltip);
+  });
+
+  renderGithubPanel();
+
+  await runLoader();
+
+  // Cinematic hero entrance (split-word 3D flip-up), then the rest of
+  // the page's scroll-triggered choreography.
+  playHeroIntro();
+  initScrollReveal();
+  initAdvancedAnimations();
+}
+
+document.addEventListener("DOMContentLoaded", boot);
+
+</script>
+</body>
+</html>
